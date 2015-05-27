@@ -134,12 +134,13 @@ def task_edit(request, task_id):
 @permission_required('api.add_task', login_url='/login/')
 def task_new(request, project_id):
 	if request.method == "POST":
-		taskform = TaskForm(request.POST, currproject=project_id)
+		# print request.POST
+		taskform = TaskForm(request.POST)
 		if taskform.is_valid():
 			task = taskform.save()
 			return redirect('pages-tasks')
 	else:
-		taskform = TaskForm()
+		taskform = TaskForm(initial={'project_id':project_id})
 
 	return render(request, 'pages/task_edit.html', {'taskform': taskform})
 

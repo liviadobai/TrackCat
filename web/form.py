@@ -67,12 +67,15 @@ class TaskForm(forms.ModelForm):
 			}
 
 	def __init__(self, *args, **kwargs):
-		currproject = kwargs.pop('project_id',None)
+		super(TaskForm, self).__init__(*args, **kwargs)	
+		#print kwargs
+		#projectxx = kwargs['initial'].get('currproject',None)
 		self.base_fields['status'].choices = STATUS_CHOICES[:3]
 		self.base_fields['project_id'].queryset = Project.objects.all().exclude(status= 'DELETED')
-		super(TaskForm, self).__init__(*args, **kwargs)	
-		if currproject is not None:
-			self.fields['project_id'].initial = currproject
+		
+		#if projectxx is not None:
+		#	self.initial['project_id'] = projectxx
+			
 
 
 class UserProfileForm(forms.ModelForm):
