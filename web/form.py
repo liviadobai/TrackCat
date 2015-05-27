@@ -72,7 +72,7 @@ class TaskForm(forms.ModelForm):
 		self.base_fields['project_id'].queryset = Project.objects.all().exclude(status= 'DELETED')
 		super(TaskForm, self).__init__(*args, **kwargs)	
 		if currproject is not None:
-			self.fields['project_id'] = currproject
+			self.fields['project_id'].initial = currproject
 
 
 class UserProfileForm(forms.ModelForm):
